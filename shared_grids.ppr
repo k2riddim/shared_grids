@@ -14,7 +14,7 @@ Extensions=*.*
 [Project tree]
 shared_grids
 	+shared_grids
-		+application
+		-application
 			-cache
 				application\cache\.htaccess
 				application\cache\index.html
@@ -35,7 +35,7 @@ shared_grids
 				application\config\user_agents.php
 			-controllers
 				application\controllers\index.html
-				application\controllers\welcome.php
+				application\controllers\homepage.php
 			-core
 				application\core\index.html
 			-errors
@@ -59,10 +59,9 @@ shared_grids
 				application\models\index.html
 			-third_party
 				application\third_party\index.html
-			-views
+			+views
 				application\views\index.html
-				application\views\welcome_message.php
-			application\.htaccess
+				application\views\homepage.php
 			application\index.html
 		-system
 			-core
@@ -417,27 +416,12 @@ shared_grids
 		.travis.yml
 		index.php
 		license.txt
+		application\.htaccess
 [Open project files]
-0=readme.txt
-1=application\config\config.php
-2=index.php
-3=application\config\autoload.php
-4=.gitignore
+0=index.php
 [Selected Project Files]
 Main=
-Selected=.gitignore
-[readme.txt]
-TopLine=1
-Caret=13,1
-[application\config\config.php]
-TopLine=18
-Caret=87,18
+Selected=index.php
 [index.php]
 TopLine=1
 Caret=1,1
-[application\config\autoload.php]
-TopLine=53
-Caret=27,60
-[.gitignore]
-TopLine=206
-Caret=32,218
