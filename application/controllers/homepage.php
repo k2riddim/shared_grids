@@ -10,7 +10,7 @@ class HomePage extends CI_Controller {
 	{
     $this->load->model('grid_model');
     $this->load->controller('grid_manager');
-    $activegrids = this->grid_model->get_active_grids('2x2')  
+    $activegrids = this->grid_model->get_active_grids('2x2');
         
     if($activegrids)
     {
@@ -18,7 +18,7 @@ class HomePage extends CI_Controller {
     }
     else 
     {
-      this->grid_manager->create_grid('2x2')
+      this->grid_manager->_create_grid('2x2')
     }
       
     

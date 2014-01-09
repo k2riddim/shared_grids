@@ -5,7 +5,7 @@ class GridMananger extends CI_Controller {
 	/**
 	 * Index Page for this controller.
 	 */
-	public function create_grid($type)
+	public function _create_grid($type)
 	{
       $this->load->model('grid_model');
       $this->load->model('grid_type_model');
