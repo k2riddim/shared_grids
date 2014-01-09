@@ -5,7 +5,7 @@ class Grid_model extends CI_Model
     protected $table = 'grid';
     
     /**
-     *  Ajoute une grille
+     *  Ajoute une grille     
      */
     public function add_grid($type)
     {
@@ -34,10 +34,12 @@ class Grid_model extends CI_Model
   
     /**
      *  Supprime une grille
+     *  /!\ la on ne supprime pas les cases de la grille, et ça peut générer des erreurs.     
      */
     public function delete_grid($id)
     {
-      return FALSE;   
+      $this->db->where('id',  $id);
+      return $this->db->delete($this->table);
     }
     
  
@@ -50,10 +52,15 @@ class Grid_model extends CI_Model
     }
     
     /**
-     *  Retourne les infos sur la grille
+     *  Retourne les grilles actives pour un type
      */
-    public function get_active_grids()
+    public function get_active_grids($type)
     {
-      return FALSE; 
+      return $this->db->select('*')
+            ->from($this->table)
+            ->where('state',TRUE)
+            ->where('type',$type)
+            ->get()
+            ->result();
     }
 }
