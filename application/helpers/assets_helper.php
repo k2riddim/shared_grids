@@ -12,7 +12,7 @@ if ( ! function_exists('js_url'))
 {
     function js_url($nom)
     {
-        return base_url() . 'assets/javacript/' . $nom . '.js';
+        return base_url() . 'assets/js/' . $nom . '.js';
     }
 }
 
@@ -29,5 +29,13 @@ if ( ! function_exists('img'))
     function img($nom, $alt = '')
     {
         return '<img src="' . img_url($nom) . '" alt="' . $alt . '" />';
+    }
+}
+
+if ( ! function_exists('home_url'))
+{
+    function home_url($url)
+    {
+        return base_url() . $url;
     }
 }

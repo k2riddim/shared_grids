@@ -6,7 +6,7 @@
   <link href="<?php echo css_url("sticky-footer-navbar");?>" rel="stylesheet" media="screen">
   <link href="<?php echo css_url("bootstrap.min");?>" rel="stylesheet" media="screen">
 </head>
-<body>
+<body>             
 	    <!-- Wrap all page content here -->
     <div id="wrap">
       <!-- Fixed navbar -->
@@ -23,10 +23,10 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="<?php echo home_url('');?>">Home</a></li>
+              <li><a href="<?php echo home_url('');?>">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
+              <li class="dropdown-active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Grids <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-header">Size</li>
@@ -43,9 +43,34 @@
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
-          <h1>List of active grids</h1>
+          <h1>Database form</h1>
         </div>
-        <p>Lorem ipsum dolor sit amet consectetuer Mauris cursus vel et Vestibulum. Condimentum id porttitor velit Vivamus congue elit metus condimentum wisi enim. Massa semper Aenean elit amet Curabitur quis wisi tellus elit pretium. Pulvinar Nam felis et eget aliquet id a non pede sit. Pretium dolor cursus magna mollis rutrum pretium suscipit mattis elit.</p>
+          <?php if (isset($size))
+          {
+            echo "<p>A ".$size." grid is being created</p>";
+          }
+          else if (isset($grid_id))
+          {
+            echo "<p>Grid ".$grid_id." has been deleted</p>";
+          }
+          ?>
+        <p><a href="<?php echo home_url("homepage/create_grids/2x2");?>">Create a 2x2 grid</a></p>
+        <p><a href="<?php echo home_url("homepage/create_grids/3x3");?>">Create a 3x3 grid</a></p>
+        <p><a href="<?php echo home_url("homepage/create_grids/4x4");?>">Create a 4x4 grid</a></p>
+        <?php 
+        $attributes['class'] = 'form-inline';
+        echo form_open('homepage/delete_grid', $attributes);
+        echo form_label('Remove grid : ', 'grid_id');
+        
+        $input = array(
+              'name'        => 'grid_id',
+              'placeholder'       => 'id of the grid...',
+            );
+
+        echo form_input($input); 
+        echo form_submit('mysubmit', 'Submit');
+        echo form_close();
+        ?>      
       </div>
     </div>
 
