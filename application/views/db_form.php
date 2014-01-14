@@ -53,6 +53,10 @@
           {
             echo "<p>Grid ".$grid_id." has been deleted</p>";
           }
+          else if (isset($error))
+          {
+            echo $error;
+          }
           ?>
         <p><a href="<?php echo home_url("homepage/create_grids/2x2");?>">Create a 2x2 grid</a></p>
         <p><a href="<?php echo home_url("homepage/create_grids/3x3");?>">Create a 3x3 grid</a></p>

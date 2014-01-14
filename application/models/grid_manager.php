@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Grid_manager extends CI_Controller {
+class Grid_manager extends CI_Model {
 
 	/**
 	 * Index Page for this controller.
@@ -9,6 +9,8 @@ class Grid_manager extends CI_Controller {
 	{
       $this->load->model('grid_model');
       $this->load->model('square_model');
+      
+      log_message('debug', 'Grid_manager > _create_grid with type = '.$type);
       
       $result = $this->grid_model->add_grid($type);
       if ($result != FALSE)
@@ -22,13 +24,13 @@ class Grid_manager extends CI_Controller {
         else 
         {
           // TODO gestion erreur SQL
-          log_message('error','Grid_manager > _create_grid : erreur SQL lors de la creation des cases : '.$result_sq);
+          log_message('error', 'Grid-manager : erreur SQL lors de la creation des cases : '.$result_sq);
         }
       } 
       else
       {
         // TODO gestion erreur SQL
-        log_message('error','Grid_manager > _create_grid : erreur SQL lors de la creation de la grille : '.$result);
+        log_message('error', 'Grid-manager : erreur SQL lors de la creation de la grille : '.$result);
       }   
 	}
   
@@ -45,7 +47,7 @@ class Grid_manager extends CI_Controller {
       else 
       {
         // TODO gestion erreur SQL
-        log_message('error','Grid_manager > _delete_grid : erreur SQL lors du delete de la grille : '.$result);
+        log_message('error', 'Grid-manager : erreur SQL lors du delete de la grille : '.$result);
       }
 
 	}

@@ -11,42 +11,66 @@ class Square_model extends CI_Model
      */
     public function add_all_squares($grid_id, $type)
     {
-     switch ($type)
+      log_message('debug', 'Square_model > add_all_squares : $grid_id ='.$grid_id.' , $type ='.$type);
+      switch ($type)
       {
         case '2x2':
+          log_message('debug', 'Square_model > add_all_squares : case 2x2');
           for ($i = 0; $i<4 ; $i++)
-          { 
-            add_square($grid_id, $i);
+          {  
+            log_message('debug', 'Square_model > dans boucle $i='.$i);
+            $result[$i] = $this->add_square($grid_id, $i);
           }
-          return TRUE;          
+          break;
+       
         case '3x3':
+          log_message('debug', 'Square_model > add_all_squares : case 3x3');
           for ($i = 0; $i<9 ; $i++)
           { 
-            add_square($grid_id, $i);
+            $result[$i] = $this->add_square($grid_id, $i);
           }
-          return TRUE; 
+          break;
+          
        case '4x4': 
+          log_message('debug', 'Square_model > add_all_squares : case 4x4');
           for ($i = 0; $i<16 ; $i++)
           { 
-            add_square($grid_id, $i);
+            $result[$i] = $this->add_square($grid_id, $i);
           }
-          return TRUE;
+          break;
+          
         default :
+          log_message('debug', 'Square_model > add_all_squares : case default');
           return FALSE;
       }
-      return FALSE;  
-
+      // TODO : supprimer les derniers inserts si un des insert est FALSE.
+      for ($j = 0; $j < count($result); $j++)
+      {
+        log_message('debug', 'Square_model > result['.$j.'] : '.$result[$j]);
+        if ($result[$j] = FALSE)
+        {
+          log_message('error','Square_model : erreur insertion square > grid : '.$grid_id.' square : '.$j);
+          return FALSE;
+        }
+      }
+      return TRUE; 
     }
-  
-  
+                                
+    /**
+     * Ajoute une case
+     */         
     public function add_square($grid_id, $id)
     {
+      log_message('debug', 'Square_model > add_square : $grid_id='.$grid_id.', $id='.$id);
       $this->db->set('grid_id',  $grid_id);
       $this->db->set('id',  $id);
       $this->db->set('tmst_update', 'NOW()', false);
       $this->db->set('tmst_create', 'NOW()', false);
-      return $this->db->insert($this->table);
+      $result = $this->db->insert($this->table);
+      log_message('debug', 'Square_model > add_square : $result='.$result);
+      return $result;
     }
+    
     /**
      *  Supprime une case
      */
