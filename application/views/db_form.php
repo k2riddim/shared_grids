@@ -24,17 +24,8 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a href="<?php echo home_url('');?>">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="dropdown-active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Grids <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li class="dropdown-header">Size</li>
-                  <li><a href="<?php echo home_url("homepage/create_grids/2x2");?>">2x2</a></li>
-                  <li><a href="<?php echo home_url("homepage/create_grids/3x3");?>">3x3</a></li>
-                  <li><a href="<?php echo home_url("homepage/create_grids/4x4");?>">4x4</a></li>
-                </ul>
-              </li>
+              <li><a href="#">About</a></li>
+              <li class="active"><a href="<?php echo home_url("homepage/db_form");?>">Database</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -45,22 +36,53 @@
         <div class="page-header">
           <h1>Database form</h1>
         </div>
-          <?php if (isset($size))
+        <?php 
+          if (isset($type))
           {
-            echo "<p>A ".$size." grid is being created</p>";
+            echo '<div class="alert alert-success">Grid '.$type.' has been created (id='.$added_grid.')</div>';
           }
-          else if (isset($grid_id))
+          if (isset($grid_id))
           {
-            echo "<p>Grid ".$grid_id." has been deleted</p>";
+            echo '<div class="alert alert-success">Grid '.$grid_id.' has been deleted</div>';
           }
-          else if (isset($error))
+          if (isset($error))
           {
-            echo $error;
+            echo '<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> '.$error.'</div>';
           }
-          ?>
+        ?>
+        <h3>Liste of active grids :</h3>
+        <?php
+          if (isset($aGridx2))
+          {
+            foreach ($aGridx2 as $activegrid)
+            {
+              echo "<p>2x2 grid id : ".$activegrid->id."</p>";
+            }
+          }
+          if (isset($aGridx3))
+          {
+            foreach ($aGridx3 as $activegrid)
+            {
+             echo "<p>3x3 grid id : ".$activegrid->id."</p>";
+            }
+          }
+          if (isset($aGridx4))
+          {
+            foreach ($aGridx4 as $activegrid)
+            {
+              echo "<p>4x4 grid id : ".$activegrid->id."</p>";
+            }
+          }
+          if (!isset($aGridx2) && !isset($aGridx3) && !isset($aGridx4))
+          {
+            echo "<p>no active grid.</p>";
+          }
+        ?>
+        <h3>Creation :</h3>
         <p><a href="<?php echo home_url("homepage/create_grids/2x2");?>">Create a 2x2 grid</a></p>
         <p><a href="<?php echo home_url("homepage/create_grids/3x3");?>">Create a 3x3 grid</a></p>
         <p><a href="<?php echo home_url("homepage/create_grids/4x4");?>">Create a 4x4 grid</a></p>
+        <h3>Delete :</h3>
         <?php 
         $attributes['class'] = 'form-inline';
         echo form_open('homepage/delete_grid', $attributes);

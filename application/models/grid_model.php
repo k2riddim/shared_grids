@@ -6,38 +6,16 @@ class Grid_model extends CI_Model
     
     /**
      *  Ajoute une grille
-     *  Attention on n'ajoute pas les cases de la grille dans ce modèle.          
+     *  TODO : gestion erreur lié au type.          
      */
     public function add_grid($type)
     {
       log_message('debug', 'Grid_model > add_grid with type = '.$type);
-      switch ($type)
-      {
-        case '2x2': 
-          log_message('debug', 'Grid_model > add_grid : case 2x2');
-          $this->db->set('type', $type);
-          $this->db->set('tmst_create', 'NOW()', false);
-          $result = $this->db->insert($this->table);
-          log_message('debug', 'Grid_model > add_grid : result = '.$result);
-          break;
-        case '3x3':
-          log_message('debug', 'Grid_model > add_grid : case 3x3'); 
-          $this->db->set('type', $type);
-          $this->db->set('tmst_create', 'NOW()', false);
-          $result = $this->db->insert($this->table);
-          log_message('debug', 'Grid_model > add_grid : result = '.$result);
-          break;
-       case '4x4':
-          log_message('debug', 'Grid_model > add_grid : case 4x4'); 
-          $this->db->set('type',  $type);
-          $this->db->set('tmst_create', 'NOW()', false);
-          $result = $this->db->insert($this->table);
-          log_message('debug', 'Grid_model > add_grid : result = '.$result); 
-          break;
-        default :
-          log_message('debug', 'Grid_model > add_grid : case default');
-          return FALSE;
-      }
+      $this->db->set('state', TRUE);
+      $this->db->set('type',  $type);
+      $this->db->set('tmst_create', 'NOW()', FALSE);
+      $result = $this->db->insert($this->table);
+      
       if ($result = TRUE)
         {
           return $this->db->insert_id();
@@ -54,6 +32,7 @@ class Grid_model extends CI_Model
      */
     public function delete_grid($id)
     {
+      log_message('debug', 'Grid_model > delete_grid: $id='.$id); 
       $this->db->where('id',  $id);
       return $this->db->delete($this->table);
     }
@@ -64,6 +43,7 @@ class Grid_model extends CI_Model
      */
     public function get_grid($id)
     {
+      log_message('debug', 'Grid_model > get_grid: $id='.$id); 
       return FALSE;     
     }
     
@@ -72,11 +52,25 @@ class Grid_model extends CI_Model
      */
     public function get_active_grids($type)
     {
+      log_message('debug', 'Grid_model > get_active_grids: $type='.$type); 
       return $this->db->select('*')
             ->from($this->table)
             ->where('state',TRUE)
             ->where('type',$type)
             ->get()
             ->result();
+    }
+    
+    /**
+     *  Retourne le nombre de grilles actives pour un type
+     */
+    public function get_nb_active_grids($type)
+    {
+      log_message('debug', 'Grid_model > get_nb_active_grids: $type='.$type); 
+      return $this->db->select('*')
+            ->from($this->table)
+            ->where('state',TRUE)
+            ->where('type',$type)
+            ->count_all_results();
     }
 }

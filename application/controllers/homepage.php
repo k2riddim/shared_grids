@@ -4,13 +4,19 @@ class HomePage extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
-	 * TODO meilleur gestion du type de grille. 
-	 * Peut être créer une classe de grille qui permettrait l'héritage 
-	 * pour une classe / type de grille.      
+	 * TODO meilleur gestion du type de grille.       
 	 */
 	public function index()
-	{      
-    $this->load->view('homepage');
+	{   
+    $this->load->model('grid_model');
+    
+    log_message('debug', 'Homepage>index>');
+    
+    $data['aGridx2'] = $this->grid_model->get_active_grids('2x2');   
+    $data['aGridx3'] = $this->grid_model->get_active_grids('3x3');   
+    $data['aGridx4'] = $this->grid_model->get_active_grids('4x4');
+          
+    $this->load->view('homepage', $data);
 	}
   
   /**
@@ -20,17 +26,21 @@ class HomePage extends CI_Controller {
   */
   public function create_grids($type)
   {
+    log_message('debug', 'Homepage>create_grids>$type='.$type);
     $this->load->model('grid_manager');
+    
+    // Grid creation    
     $result = $this->grid_manager->_create_grid($type);
-    if ($result)
+    if ($result != FALSE)
     {
       $data['type'] = $type;
-      $this->load->view('db_form', $data);
+      $data['added_grid'] = $result;
+      $this->db_form($data);
     } 
     else
     {
       $data['error'] = 'erreur dans le traitement de la creation';
-      $this->load->view('db_form', $data);
+      $this->db_form($data);
     }    
   }
   
@@ -47,14 +57,30 @@ class HomePage extends CI_Controller {
     if ($result)
     {
       $data['grid_id'] = $grid_id;
-      $this->load->view('db_form', $data);
+      $this->db_form($data);
     } 
     else
     {
       $data['error'] = 'erreur dans le traitement du delete';
-      $this->load->view('db_form', $data);
+      $this->db_form($data);
     }
-		
+  }
+  
+  /**
+   *   fonction permettant de gérer les données à afficher dans la view db_form.
+   */   
+  public function db_form($data = '')
+  {
+    // on veut récupérer la liste des grille actives pour afficher leur ID.
+    $this->load->model('grid_model');
+    
+    log_message('debug', 'Homepage>db_form>');
+    
+    $data['aGridx2'] = $this->grid_model->get_active_grids('2x2');   
+    $data['aGridx3'] = $this->grid_model->get_active_grids('3x3');   
+    $data['aGridx4'] = $this->grid_model->get_active_grids('4x4');   
+    
+    $this->load->view('db_form', $data);
   }
 }
 
