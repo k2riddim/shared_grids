@@ -37,26 +37,29 @@
         <div class="page-header">
           <h1>List of active grids</h1>
         </div>
-        
-        <div class="row">
-          <div class="col-md-3">
-            <div class="grid-line">
-              <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-question-sign"></span></button>
-              <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-question-sign"></span></button>
-            </div>
-            <div class="grid-line">
-              <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></button>
-              <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-question-sign"></span></button>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <p>Lorem ipsum dolor sit amet consectetuer mus Quisque eget dictum cursus. Magna pede nunc Lorem augue nibh eget leo.</p>
-            <p>Et Maecenas velit pretium pellentesque ligula In dapibus suscipit Integer.</p>
-            <p>At pulvinar tellus tincidunt nibh velit dui ut ligula facilisis tellus. Pede convallis Maecenas enim.</p>
-            <p>Urna neque justo et urna orci diam consectetuer Integer tempor eget. In et auctor morbi Quisque.</p>
-            <p>Metus est Aenean ipsum urna adipiscing Curabitur.</p>
-          </div>
-        </div>
+        <?php
+        if (isset($squaresx2))
+        {
+          foreach ($squaresx2 as $squares)
+          {
+            echo produce_grid($squares);
+          }
+        }
+        if (isset($squaresx3))
+        {
+          foreach ($squaresx3 as $squares)
+          {
+            echo produce_grid($squares);
+          }
+        }
+        if (isset($squaresx4))
+        {
+          foreach ($squaresx4 as $squares)
+          {
+            echo produce_grid($squares);
+          }
+        }
+        ?>  
       </div>
     </div>
 

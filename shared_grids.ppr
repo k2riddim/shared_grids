@@ -14,7 +14,23 @@ Extensions=*.*
 [Project tree]
 shared_grids
 	+shared_grids
-		-application
+		-assets
+			-fonts
+				assets\fonts\glyphicons-halflings-regular.woff
+				assets\fonts\glyphicons-halflings-regular.ttf
+				assets\fonts\glyphicons-halflings-regular.svg
+				assets\fonts\glyphicons-halflings-regular.eot
+			+css
+				assets\css\sticky-footer-navbar.css
+				assets\css\grids.css
+				assets\css\bootstrap-theme.min.css
+				assets\css\bootstrap-theme.css
+				assets\css\bootstrap.min.css
+				assets\css\bootstrap.css
+			+js
+				assets\js\bootstrap.min.js
+				assets\js\bootstrap.js
+		+application
 			-cache
 				application\cache\.htaccess
 				application\cache\index.html
@@ -33,9 +49,10 @@ shared_grids
 				application\config\routes.php
 				application\config\smileys.php
 				application\config\user_agents.php
-			-controllers
+			+controllers
 				application\controllers\index.html
 				application\controllers\homepage.php
+				application\controllers\grid_manager.php
 			-core
 				application\core\index.html
 			-errors
@@ -44,8 +61,10 @@ shared_grids
 				application\errors\error_general.php
 				application\errors\error_php.php
 				application\errors\index.html
-			-helpers
+			+helpers
 				application\helpers\index.html
+				application\helpers\grid_producer_helper.php
+				application\helpers\assets_helper.php
 			-hooks
 				application\hooks\index.html
 			-language
@@ -55,13 +74,18 @@ shared_grids
 				application\libraries\index.html
 			-logs
 				application\logs\index.html
-			-models
+			+models
 				application\models\index.html
+				application\models\square_model.php
+				application\models\grid_type_model.php
+				application\models\grid_model.php
+				application\models\grid_manager.php
 			-third_party
 				application\third_party\index.html
 			+views
 				application\views\index.html
 				application\views\homepage.php
+				application\views\db_form.php
 			application\index.html
 		-system
 			-core
@@ -419,9 +443,45 @@ shared_grids
 		application\.htaccess
 [Open project files]
 0=index.php
+1=application\controllers\homepage.php
+2=application\views\db_form.php
+3=application\controllers\grid_manager.php
+4=application\models\square_model.php
+5=application\models\grid_model.php
+6=application\views\homepage.php
+7=application\helpers\grid_producer_helper.php
+8=assets\css\grids.css
+9=application\controllers\index.html
 [Selected Project Files]
 Main=
-Selected=index.php
+Selected=application\controllers\homepage.php
 [index.php]
+TopLine=11
+Caret=86,35
+[application\controllers\homepage.php]
+TopLine=98
+Caret=16,106
+[application\views\db_form.php]
+TopLine=75
+Caret=9,87
+[application\controllers\grid_manager.php]
+TopLine=3
+Caret=43,17
+[application\models\square_model.php]
+TopLine=107
+Caret=27,124
+[application\models\grid_model.php]
+TopLine=36
+Caret=1,55
+[application\views\homepage.php]
+TopLine=37
+Caret=30,59
+[application\helpers\grid_producer_helper.php]
+TopLine=17
+Caret=50,50
+[assets\css\grids.css]
+TopLine=1
+Caret=30,11
+[application\controllers\index.html]
 TopLine=1
 Caret=1,1

@@ -11,7 +11,7 @@ class Grid_model extends CI_Model
     public function add_grid($type)
     {
       log_message('debug', 'Grid_model > add_grid with type = '.$type);
-      $this->db->set('state', TRUE);
+      $this->db->set('state', 'active');
       $this->db->set('type',  $type);
       $this->db->set('tmst_create', 'NOW()', FALSE);
       $result = $this->db->insert($this->table);
@@ -55,7 +55,7 @@ class Grid_model extends CI_Model
       log_message('debug', 'Grid_model > get_active_grids: $type='.$type); 
       return $this->db->select('*')
             ->from($this->table)
-            ->where('state',TRUE)
+            ->where('state','active')
             ->where('type',$type)
             ->get()
             ->result();
@@ -69,8 +69,16 @@ class Grid_model extends CI_Model
       log_message('debug', 'Grid_model > get_nb_active_grids: $type='.$type); 
       return $this->db->select('*')
             ->from($this->table)
-            ->where('state',TRUE)
+            ->where('state','active')
             ->where('type',$type)
             ->count_all_results();
+    }
+    
+    public function set_grid_state($grid_id, $state)
+    { 
+      log_message('debug', 'Grid_model > set_grid_state: $grid_id='.$grid_id);         
+      return $this->db->set('state',  $state)
+            ->where('id',  $grid_id)
+            ->update($this->table);
     }
 }

@@ -3,4 +3,11 @@
 
 .grid-line {
     padding-top: 3px;
+    text-align: center;
+}
+
+.row {
+  border: 1px dashed lightgray;
+  padding-bottom: 3px;
+  margin-bottom: 15px;
 }

@@ -64,8 +64,9 @@ class Square_model extends CI_Model
       log_message('debug', 'Square_model > add_square : $grid_id='.$grid_id.', $id='.$id);
       $this->db->set('grid_id',  $grid_id);
       $this->db->set('id',  $id);
-      $this->db->set('tmst_update', 'NOW()', false);
-      $this->db->set('tmst_create', 'NOW()', false);
+      $this->db->set('state',  TRUE);
+      $this->db->set('tmst_update', 'NOW()', FALSE);
+      $this->db->set('tmst_create', 'NOW()', FALSE);
       $result = $this->db->insert($this->table);
       log_message('debug', 'Square_model > add_square : $result='.$result);
       return $result;
@@ -74,7 +75,7 @@ class Square_model extends CI_Model
     /**
      *  Supprime une case
      */
-    public function delete_square($id, $grid_id)
+    public function delete_square($grid_id, $id)
     {
       $this->db->where('id',  $id);
       $this->db->where('grid_id',  $grid_id);
@@ -84,16 +85,18 @@ class Square_model extends CI_Model
     /**
      *  Met à jour l'état d'une case
      */
-    public function set_square_state($state)
+    public function set_square_state($grid_id, $id, $state)
     {
-      $this->db->set('state',  $state);
-      return $this->db->update($this->table);
+      return $this->db->set('state',  $state)
+              ->where('grid_id',  $grid_id)
+              ->where('id',  $id)
+              ->update($this->table);
     }
     
     /**
      *  Met à jour l'état d'une case
      */
-    public function set_sender_adress($id)
+    public function set_sender_address($id)
     {
       return FALSE;  
     }
@@ -101,8 +104,37 @@ class Square_model extends CI_Model
     /**
      *  Retourne l'ensemble des cases d'une grille
      */
-    public function get_squares_from_grid($grid_id)
+    public function get_squares_of_grid($grid_id)
     {
-      return FALSE;  
+      log_message('debug', 'Square_model > get_squares_of_grid: $grid_id='.$grid_id); 
+      return $this->db->select('*')
+            ->from($this->table)
+            ->where('grid_id',$grid_id)
+            ->get()
+            ->result();
+    }
+    
+    /**
+     *  Retourne une case
+     */
+    public function get_square($grid_id, $id)
+    {
+      log_message('debug', 'Square_model > get_square: $grid_id='.$grid_id.' , $id='.$id); 
+      return $this->db->select('*')
+            ->from($this->table)
+            ->where('grid_id',$grid_id)
+            ->where('id',$id)
+            ->get()
+            ->result();
+    }
+    
+    public function count_active_square_of_grid($grid_id)
+    {
+      log_message('debug', 'Square_model > count_active_square_of_grid: $grid_id='.$grid_id); 
+      return $this->db->select('*')
+            ->from($this->table)
+            ->where('grid_id',$grid_id)
+            ->where('state',TRUE)
+            ->count_all_results();
     }
 }

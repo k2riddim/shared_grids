@@ -4,6 +4,10 @@ class Grid_manager extends CI_Model {
  
 	/**
 	 * Managing the grid creation / delete / update.
+	 * TODO la création des squares devrait peut être se faire ici, et 
+	 * en allant chercher la taille dans le grid-type.
+	 * La table grille type pourrait être plus détaillé peut être pour
+	 * permettre l'inclusion de nouvelles grilles.            
 	 */
 	public function _create_grid($type)
 	{          
