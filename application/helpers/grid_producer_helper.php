@@ -47,13 +47,13 @@ if ( ! function_exists('produce_grid'))
       }
       $html .='      </div>';
     
-      $odds = (1 / (1 / ($nb_squares - $nb_failed)))*0.99;
+      $odds =  odds_calculator($nb_squares, $nb_failed);
     
       $html .='    </div>';
       $html .='    <div class="col-md-9">';
       $html .='      <p>Grid id : '.$grid_id.'.</p>';
       $html .='      <p>Failed attempts : '.$nb_failed.'.</p>';
-      $html .='      <p>Odds of the next attempt is '.$odds;
+      $html .='      <p>Odds of the next attempt are '.$odds;
       $html .='    </div>';
       $html .='  </div>';
       
@@ -61,5 +61,12 @@ if ( ! function_exists('produce_grid'))
       
       return $html;
     }
+}
 
+if ( ! function_exists('odds_calculator'))
+{
+  function odds_calculator($nb_squares, $nb_failed)
+  {
+    return (1 / (1 / ($nb_squares - $nb_failed)))*0.99;
+  }
 }

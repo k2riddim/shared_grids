@@ -28,6 +28,20 @@
               <li><a href="#">About</a></li>
               <li><a href="<?php echo home_url("homepage/db_form");?>">Database</a></li>
             </ul>
+            <ul class="nav navbar-nav pull-right">
+              <li id="a" style="visibility: hidden; display: none; width:0px;"></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> Sign in <b class="caret"></b></a>
+                    <div class="dropdown-menu">
+                        <form style="padding: 19px 19px 0 19px;" id="login" method="post">
+                            <input type="text" class="span2" placeholder="Username" name="username">
+                            <input type="password" class="span2" placeholder="Password" name="password">
+                            <span class="help-block"><a href="#">I forgot my password</a></span>
+                            <button type="submit" name="login" class="btn btn-primary" style="margin: 0;">Login</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -65,7 +79,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="text-muted">Page rendered in <strong>{elapsed_time}</strong> seconds.</p>
+        <p class="text-muted">Page rendered in <strong>{elapsed_time}</strong> seconds. Your IP is : <?php echo ($this->session->userdata('ip_address'));?></p>
       </div>
     </div>
 

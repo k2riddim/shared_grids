@@ -124,14 +124,14 @@ class HomePage extends CI_Controller {
       if ($this->square_model->count_active_square_of_grid($grid_id) < 3)
       {
         $this->square_model->set_square_state($grid_id, $id, FALSE);
-        $this->square_model->set_sender_address('debug')
+        $this->square_model->set_sender_address('debug');
         $this->grid_model->set_grid_state($grid_id, 'lose');
        
       }
       else
       {
         $this->square_model->set_square_state($grid_id, $id, FALSE);
-        $this->square_model->set_sender_address('debug')
+        $this->square_model->set_sender_address('debug');
       }
         
      }
