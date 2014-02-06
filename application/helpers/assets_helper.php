@@ -34,7 +34,7 @@ if ( ! function_exists('img'))
 
 if ( ! function_exists('home_url'))
 {
-    function home_url($url)
+    function home_url($url='')
     {
         return base_url() . $url;
     }

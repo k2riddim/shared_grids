@@ -14,20 +14,30 @@ Extensions=*.*
 [Project tree]
 shared_grids
 	+shared_grids
-		-assets
+		+assets
+			-captcha
+				-fonts
+					assets\captcha\fonts\index.html
+					assets\captcha\fonts\5.ttf
+					assets\captcha\fonts\4.ttf
+					assets\captcha\fonts\3.ttf
+					assets\captcha\fonts\2.ttf
+					assets\captcha\fonts\1.ttf
+					assets\captcha\fonts\.htaccess
+				assets\captcha\index.html
 			-fonts
 				assets\fonts\glyphicons-halflings-regular.woff
 				assets\fonts\glyphicons-halflings-regular.ttf
 				assets\fonts\glyphicons-halflings-regular.svg
 				assets\fonts\glyphicons-halflings-regular.eot
-			+css
+			-css
 				assets\css\sticky-footer-navbar.css
 				assets\css\grids.css
 				assets\css\bootstrap-theme.min.css
 				assets\css\bootstrap-theme.css
 				assets\css\bootstrap.min.css
 				assets\css\bootstrap.css
-			+js
+			-js
 				assets\js\bootstrap.min.js
 				assets\js\bootstrap.js
 		+application
@@ -49,10 +59,15 @@ shared_grids
 				application\config\routes.php
 				application\config\smileys.php
 				application\config\user_agents.php
+				application\index.html
+				application\config\tank_auth.php
+				application\config\email.php
 			+controllers
 				application\controllers\index.html
 				application\controllers\homepage.php
 				application\controllers\grid_manager.php
+				application\controllers\welcome.php
+				application\controllers\auth.php
 			-core
 				application\core\index.html
 			-errors
@@ -61,20 +76,33 @@ shared_grids
 				application\errors\error_general.php
 				application\errors\error_php.php
 				application\errors\index.html
-			+helpers
+			-helpers
 				application\helpers\index.html
 				application\helpers\grid_producer_helper.php
 				application\helpers\assets_helper.php
+				application\helpers\recaptcha_helper.php
 			-hooks
 				application\hooks\index.html
 			-language
 				-english
 					application\language\english\index.html
-			-libraries
+			+libraries
+				-phpass-0.1
+					-c
+						application\libraries\phpass-0.1\c\Makefile
+						application\libraries\phpass-0.1\c\crypt_private.c
+					application\libraries\phpass-0.1\test.php
+					application\libraries\phpass-0.1\PasswordHash.php
 				application\libraries\index.html
+				application\libraries\Bitcoin.php
+				application\libraries\Tank_auth.php
 			-logs
 				application\logs\index.html
-			+models
+			-models
+				-tank_auth
+					application\models\tank_auth\users.php
+					application\models\tank_auth\user_autologin.php
+					application\models\tank_auth\login_attempts.php
 				application\models\index.html
 				application\models\square_model.php
 				application\models\grid_type_model.php
@@ -83,9 +111,36 @@ shared_grids
 			-third_party
 				application\third_party\index.html
 			+views
+				-admin
+					application\views\admin\db_form.php
+				-email
+					application\views\email\welcome-txt.php
+					application\views\email\welcome-html.php
+					application\views\email\reset_password-txt.php
+					application\views\email\reset_password-html.php
+					application\views\email\forgot_password-txt.php
+					application\views\email\forgot_password-html.php
+					application\views\email\change_email-txt.php
+					application\views\email\change_email-html.php
+					application\views\email\activate-txt.php
+					application\views\email\activate-html.php
+				+auth
+					application\views\auth\unregister_form.php
+					application\views\auth\send_again_form.php
+					application\views\auth\reset_password_form.php
+					application\views\auth\register_form.php
+					application\views\auth\login_form.php
+					application\views\auth\general_message.php
+					application\views\auth\forgot_password_form.php
+					application\views\auth\change_password_form.php
+					application\views\auth\change_email_form.php
 				application\views\index.html
 				application\views\homepage.php
-				application\views\db_form.php
+				application\views\welcome.php
+				application\views\template_view.php
+				application\views\navbar.php
+				application\views\footer.php
+				application\views\body.php
 			application\index.html
 		-system
 			-core
@@ -442,46 +497,98 @@ shared_grids
 		license.txt
 		application\.htaccess
 [Open project files]
-0=index.php
-1=application\controllers\homepage.php
-2=application\views\db_form.php
-3=application\controllers\grid_manager.php
-4=application\models\square_model.php
-5=application\models\grid_model.php
-6=application\views\homepage.php
-7=application\helpers\grid_producer_helper.php
-8=assets\css\grids.css
-9=application\controllers\index.html
+0=application\views\homepage.php
+1=application\views\auth\login_form.php
+2=application\controllers\auth.php
+3=application\controllers\homepage.php
+4=application\controllers\welcome.php
+5=application\config\autoload.php
+6=application\config\tank_auth.php
+7=application\views\auth\register_form.php
+8=application\views\template_view.php
+9=application\views\navbar.php
+10=application\views\body.php
+11=application\views\footer.php
+12=application\libraries\Tank_auth.php
+13=application\views\admin\db_form.php
+14=application\views\auth\send_again_form.php
+15=application\views\welcome.php
+16=application\config\email.php
+17=application\views\auth\unregister_form.php
+18=application\views\auth\reset_password_form.php
+19=application\views\auth\general_message.php
+20=application\views\auth\forgot_password_form.php
+21=application\views\auth\change_password_form.php
+22=application\views\auth\change_email_form.php
 [Selected Project Files]
 Main=
 Selected=application\controllers\homepage.php
-[index.php]
-TopLine=11
-Caret=86,35
-[application\controllers\homepage.php]
-TopLine=98
-Caret=16,106
-[application\views\db_form.php]
-TopLine=75
-Caret=9,87
-[application\controllers\grid_manager.php]
-TopLine=3
-Caret=43,17
-[application\models\square_model.php]
-TopLine=107
-Caret=27,124
-[application\models\grid_model.php]
-TopLine=36
-Caret=1,55
 [application\views\homepage.php]
-TopLine=37
-Caret=30,59
-[application\helpers\grid_producer_helper.php]
-TopLine=17
-Caret=50,50
-[assets\css\grids.css]
+TopLine=61
+Caret=70,75
+[application\views\auth\login_form.php]
+TopLine=27
+Caret=1,27
+[application\controllers\auth.php]
+TopLine=3
+Caret=57,17
+[application\controllers\homepage.php]
 TopLine=1
-Caret=30,11
-[application\controllers\index.html]
+Caret=62,11
+[application\controllers\welcome.php]
+TopLine=1
+Caret=49,26
+[application\config\autoload.php]
+TopLine=43
+Caret=96,55
+[application\config\tank_auth.php]
+TopLine=102
+Caret=35,113
+[application\views\auth\register_form.php]
+TopLine=35
+Caret=1,42
+[application\views\template_view.php]
+TopLine=7
+Caret=11,16
+[application\views\navbar.php]
+TopLine=47
+Caret=64,64
+[application\views\body.php]
+TopLine=1
+Caret=21,29
+[application\views\footer.php]
+TopLine=1
+Caret=8,9
+[application\libraries\Tank_auth.php]
+TopLine=31
+Caret=1,1
+[application\views\admin\db_form.php]
+TopLine=25
+Caret=38,39
+[application\views\auth\send_again_form.php]
+TopLine=1
+Caret=17,20
+[application\views\welcome.php]
+TopLine=110
+Caret=8,143
+[application\config\email.php]
+TopLine=1
+Caret=25,19
+[application\views\auth\unregister_form.php]
+TopLine=1
+Caret=1,22
+[application\views\auth\reset_password_form.php]
+TopLine=7
+Caret=25,35
+[application\views\auth\general_message.php]
 TopLine=1
 Caret=1,1
+[application\views\auth\forgot_password_form.php]
+TopLine=9
+Caret=1,29
+[application\views\auth\change_password_form.php]
+TopLine=17
+Caret=1,21
+[application\views\auth\change_email_form.php]
+TopLine=1
+Caret=23,17

@@ -5,15 +5,30 @@ class HomePage extends CI_Controller {
 	/**
 	 * Index Page for this controller.
 	 * TODO meilleur gestion du type de grille.       
-	 */
+	 */  
 	public function index()
-	{   
+	{
+
+    //var_dump($errors);
+    //log_message('debug', 'Homepage>index> message = '.$message);
+    
+    /*$message = $this->session->flashdata('message');       
+    if (isset($message))
+    {
+      $data['message'] = $message;
+    } */   
+   
     $this->load->model('grid_model');
     $this->load->model('square_model');
-    
-    $data['0'] = '';
-    
-    log_message('debug', 'Homepage>index>');
+      
+    if (!$this->tank_auth->is_logged_in()) {
+			//$this->load->view('navbar', $data);      
+      //$this->load->view('auth/login_form', $data);
+      //$this->load->view('footer', $data);
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+		}
     
     $gridx2 = $this->grid_model->get_active_grids('2x2');   
     $gridx3 = $this->grid_model->get_active_grids('3x3');   
@@ -35,9 +50,19 @@ class HomePage extends CI_Controller {
     if (isset($squarelistx2)){$data['squaresx2'] = $squarelistx2;}
     if (isset($squarelistx3)){$data['squaresx3'] = $squarelistx3;}
     if (isset($squarelistx4)){$data['squaresx4'] = $squarelistx4;}
-          
+    
+    $this->load->view('navbar', $data);      
     $this->load->view('homepage', $data);
+    $this->load->view('footer', $data);
 	}
+  
+  public function login_failed($data)
+  {
+    $this->load->view('navbar', $data);      
+    $this->load->view('auth/login_form', $data);
+    $this->load->view('footer', $data);
+    
+  }
   
   /**
    * Création d'une grille et de ses cases en fonction de sa taille.  
@@ -100,7 +125,7 @@ class HomePage extends CI_Controller {
     $data['aGridx3'] = $this->grid_model->get_active_grids('3x3');   
     $data['aGridx4'] = $this->grid_model->get_active_grids('4x4');   
     
-    $this->load->view('db_form', $data);
+    $this->load->view('admin/db_form', $data);
   }
   
   public function attempt($grid_id, $id)
